@@ -86,7 +86,7 @@
             {
                 this.db.Entry(taskItem).State = EntityState.Modified;
                 await this.db.SaveChangesAsync();
-                return this.RedirectToAction("TaskItemIndex", new { tid = taskItem.Id });
+                return this.RedirectToAction("TaskItemIndex", new { tid = taskItem.TaskId });
             }
 
             return this.View(taskItem);

@@ -78,7 +78,7 @@
         [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<ActionResult> Edit(
-            [Bind(Include = "Id,TaskName,Description,OwnerId")] TaskListViewModel taskList)
+            [Bind(Include = "Id,TaskName,Description,OwnerId")] TaskList taskList)
         {
             if (this.ModelState.IsValid)
             {
