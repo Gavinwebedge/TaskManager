@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TaskManager.Models.OtherIndexViewModel >
+
+@{
+    ViewBag.Title = "Other Task List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListOwner)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ListOwner)
+            </td>
+            <td>
+                @Html.ActionLink("Task Items", "TaskItemReadonlyIndex", new { tid = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
