@@ -196,10 +196,6 @@
     <Compile Include="TaskContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-TaskManager-20170411110538.mdf" />
-    <Content Include="App_Data\aspnet-TaskManager-20170411110538_log.ldf">
-      <DependentUpon>aspnet-TaskManager-20170411110538.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\TaskManager.TaskContext.mdf" />
     <Content Include="App_Data\TaskManager.TaskContext_log.ldf">
       <DependentUpon>TaskManager.TaskContext.mdf</DependentUpon>
