@@ -17,18 +17,20 @@
     public class TaskListsController : Controller
     {
         private readonly TaskContext db = new TaskContext();
-        
+
         // GET: TaskLists/Create
+        // Show View to create a TaskList
+        [Authorize]
         public ActionResult Create()
         {
             return this.View();
         }
 
         // POST: TaskLists/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Save a new TaskList
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Create([Bind(Include = "Id,TaskName,Description")] TaskList taskList)
         {
             var ownerId = new Guid(this.User.Identity.GetUserId());
@@ -44,6 +46,8 @@
         }
 
         // GET: TaskLists/Edit/5
+        // Edit a TaskList specified by id
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -69,10 +73,10 @@
         }
 
         // POST: TaskLists/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Save TaskList specified by id
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Edit(
             [Bind(Include = "Id,TaskName,Description,OwnerId")] TaskListViewModel taskList)
         {
@@ -95,6 +99,7 @@
         }
 
         // GET: TaskLists
+        // List all tasklists for this user
         [Authorize]
         public async Task<ActionResult> Index()
         {
@@ -105,24 +110,28 @@
         }
 
         // GET: TaskLists
+        // List all tasklists for all other users
         [Authorize]
         public async Task<ActionResult> OtherIndex()
         {
             var ownerId = new Guid(this.User.Identity.GetUserId());
-            var count = this.db.TaskLists.Count();
             var taskList = await this.db.TaskLists.Where(t => t.OwnerId != ownerId).ToListAsync();
             var taskListView = this.MapOtherIndexTaskList(taskList);
             return this.View(taskListView);
         }
 
-        // GET: TaskLists
+        // GET: TaskItemIndex
+        // redirect to action in TaskItemsController
         [Authorize]
-        public async Task<ActionResult> TaskItemIndex(int? tid)
+        public ActionResult TaskItemIndex(int? tid)
         {
             return this.RedirectToAction("TaskItemIndex", "TaskItems", new { tid });
         }
 
-        public async Task<ActionResult> TaskItemReadonlyIndex(int? tid)
+        // GET: TaskItemReadonlyIndex
+        // redirect to action in TaskItemsController
+        [Authorize]
+        public ActionResult TaskItemReadonlyIndex(int? tid)
         {
             return this.RedirectToAction("TaskItemReadonlyIndex", "TaskItems", new { tid });
         }

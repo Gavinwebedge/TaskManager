@@ -14,6 +14,8 @@
         private readonly TaskContext db = new TaskContext();
 
         // GET: TaskItems/Create
+        // Create the create page for an item of tasklist tid
+        [Authorize]
         public ActionResult Create(int? tid)
         {
             if (tid == null)
@@ -35,10 +37,10 @@
         }
 
         // POST: TaskItems/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Create an item for tasklist tid and return to the task list items
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Create(
             FormCollection form, [Bind(Include = "Id,TaskItemName,Description,IsCompleted")] TaskItem taskItem)
         {
@@ -54,6 +56,8 @@
         }
 
         // GET: TaskItems/Edit/5
+        // Open view to edit attributes of the Task List Item
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -71,10 +75,10 @@
         }
 
         // POST: TaskItems/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Save edit attributes of the Task List Item
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Edit(
             [Bind(Include = "Id,TaskItemName,Description,TaskId,IsCompleted")] TaskItem taskItem)
         {
@@ -90,6 +94,8 @@
 
         // GET: TaskItems/tid
         // tid = TaskListId
+        // display the items in the task list for edit
+        [Authorize]
         public async Task<ActionResult> TaskItemIndex(int? tid)
         {
             if (tid == null)
@@ -111,6 +117,8 @@
 
         // GET: TaskItems/tid
         // tid = TaskListId
+        // display the items in the task list in a read only view
+        [Authorize]
         public async Task<ActionResult> TaskItemReadonlyIndex(int? tid)
         {
             if (tid == null)
@@ -130,6 +138,7 @@
             return this.View(await this.db.TaskItems.Where(t => t.TaskId == taskListId).ToListAsync());
         }
 
+        [Authorize]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -31,14 +31,14 @@
         }
 
         [TestMethod]
-        public async Task TaskItemIndexTest()
+        public void TaskItemIndexTest()
         {
             // Arrange
             const int TestListId = 3;
             var controller = new TaskListsController();
 
             // Act
-            var result = await controller.TaskItemIndex(TestListId) as RedirectToRouteResult;
+            var result = controller.TaskItemIndex(TestListId) as RedirectToRouteResult;
 
             // Assert
             if (result == null)
@@ -68,14 +68,14 @@
         }
 
         [TestMethod]
-        public async Task TaskItemReadonlyIndexTest()
+        public void TaskItemReadonlyIndexTest()
         {
             // Arrange
             const int TestListId = 3;
             var controller = new TaskListsController();
 
             // Act
-            var result = await controller.TaskItemReadonlyIndex(TestListId) as RedirectToRouteResult;
+            var result = controller.TaskItemReadonlyIndex(TestListId) as RedirectToRouteResult;
             
             // Assert
             if (result == null)
